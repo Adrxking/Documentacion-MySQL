@@ -1,14 +1,14 @@
 -- Lock or Unlock Users --
-CREATE USER 'adrian'@'localhost' IDENTIFIED BY adrian ACCOUNT <LOCK/UNLOCK>;
+CREATE USER 'adrian'@'localhost' IDENTIFIED BY 'adrian' ACCOUNT <LOCK/UNLOCK>;
 
 -- Require SSL to users --
-CREATE USER 'adrian'@'localhost' IDENTIFIED BY adrian REQUIRE SSL;
+CREATE USER 'adrian'@'localhost' IDENTIFIED BY 'adrian' REQUIRE SSL;
 
 -- Limits for Users --
-CREATE USER 'adrian'@'localhost' IDENTIFIED BY adrian MAX_QUERIES_PER_HOUR 10;
-CREATE USER 'adrian'@'localhost' IDENTIFIED BY adrian MAX_UPDATES_PER_HOUR 10;
-CREATE USER 'adrian'@'localhost' IDENTIFIED BY adrian MAX_CONNECTIONS_PER_HOUR 10;
-CREATE USER 'adrian'@'localhost' IDENTIFIED BY adrian MAX_USER_CONNECTIONS 10;
+CREATE USER 'adrian'@'localhost' IDENTIFIED BY 'adrian' MAX_QUERIES_PER_HOUR 10;
+CREATE USER 'adrian'@'localhost' IDENTIFIED BY 'adrian' MAX_UPDATES_PER_HOUR 10;
+CREATE USER 'adrian'@'localhost' IDENTIFIED BY 'adrian' MAX_CONNECTIONS_PER_HOUR 10;
+CREATE USER 'adrian'@'localhost' IDENTIFIED BY 'adrian' MAX_USER_CONNECTIONS 10;
 
 -- Check process list --
 SHOW PROCESSLIST;

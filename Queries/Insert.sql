@@ -1,0 +1,8 @@
+-- Insert Strings --
+INSERT INTO MITABLA VALUES('VITYS');
+
+-- Insert Integers --
+INSERT INTO MITABLA VALUES(100);
+
+-- Insert Date Value --
+INSERT INTO MITABLA VALUES(9999,STR_TO_DATE('11-01-2022','%d-%m-%Y'));

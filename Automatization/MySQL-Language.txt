@@ -1,0 +1,41 @@
+# * LENGUAJE DE PROGRAMACIÓN MYSQL * #
+
+1. INTRODUCCIÓN.
+    -> Son un conjunto de instrucciones almacenadas.
+    -> Ejecución: Área de memoria asignada al servidor de la BD como si fuera un hilo más.
+    -> Almacén: BD
+    -> Tipos: 
+        - Procedimientos: Se ejecutan bajo demanda, no hay output.
+        - Funciones: Se ejecutan bajo demanda, hay output. Se pueden utilizar dentro de sentencias SQL.
+        - Triggers: Se ejecutan como respuesta de un evento como un insert.
+
+2. TUTORIAL RÁPIDO.
+    -> Procedimientos:
+
+    * Estructura Ejemplo:
+        DELIMITER $$
+        DROP PROCEDURE IF EXISTS descuento$$
+        CREATE PROCEDURE descuento(
+                precionormal NUMERIC(8,2),
+                OUT preciodescuento NUMERIC(8,2))
+        BEGIN
+            IF (precionormal>500) THEN
+                SET preciodescuento=precionormal*0.8;
+            ELSEIF (precionormal>100) THEN
+                SET preciodescuento=precionormal*0.9;
+            ELSE
+                SET preciodescuento=precionormal;
+            END IF;
+        END$$
+        DELIMITER ;
+
+        CALL descuentos (200, @precio),
+        SELECT @precio
+
+    * Parámetros:
+        -> Tipos: Pueden ser de entrada, salida o entrada/salida.
+            - IN: Default. Se le da valor de entrada, El programa que lo llama no ve los cambios.
+            - OUT: No tiene valor de entrada. El programa que lo llama ve los valores.
+            - IN/OUT: Se le da valor de entrada y devuelve valor de salida.
+        
+    * Ejecución condicional.

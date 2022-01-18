@@ -10,7 +10,7 @@
         - Triggers: Se ejecutan como respuesta de un evento como un insert.
 
 2. TUTORIAL RÁPIDO.
-    -> Procedimientos:
+-> Procedimientos:
 
     * Estructura Ejemplo:
         DELIMITER $$
@@ -64,4 +64,45 @@
     * Interactuar con la BD:
         -> SELECT ... INTO ... : Almacena los resultados de una consulta que vuelve una sola fila en variables locales.
         -> Cursores: Almacena los resultados de una consulta que devuelve una o más de una fila en variables locales. 
-        -> 
+        -> Devolver conjunto de datos desde el programa almacenado. Consulta dentro del procedimiento.
+         Devuelve el resultado de una sentencia SELECT compeja.
+
+-> Funciones:
+    --> Devuelven un valor de un tipo predefinido
+    --> Pueden llamarse desde una sentencia SQL
+    --> No pueden devolver un conjunto de resultados.
+
+    * Estructura Ejemplo:
+        DELIMITER $$
+        SET GLOBAL log_bin_trust_function_creators = 1;
+        DROP FUNCTION IF EXISTS suma$$
+        CREATE FUNCTION suma(a INT, b INT) RETURNS INT
+        BEGIN
+            DECLARE resultado INT;
+            SET resultado=a+b;
+            RETURN resultado;
+        END$$
+        DELIMITER ;
+
+        SELECT suma(2,3);
+
+    * Parámetros:
+        -> Tipos: Pueden ser solo de entrada.
+            - IN: Default. Se le da valor de entrada.
+    
+-> Triggers:
+    --> Se activan con eventos de las sentencias INSERT, UPDATE o DELETE sobre la tabla.
+    --> También pueden estar asociados a eventos del sistema.
+
+    * Estructura Ejemplo:
+        DELIMITER $$
+        DROP TRIGGER IF EXISTS prueba$$
+        CREATE TRIGGER prueba BEFORE INSERT ON EMPLE FOR EACH ROW
+        BEGIN
+            IF NEW.salario>2000 THEN
+                SET NEW.SALARIO=2000;
+            END IF;
+        END$$
+        DELIMITER ;
+
+        SELECT suma(2,3);

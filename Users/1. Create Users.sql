@@ -26,9 +26,6 @@ CREATE USER 'adrian'@'localhost' IDENTIFIED BY PASSWORD 'hash_adrian'; -- Here y
 CREATE USER 'adrian'@'localhost' IDENTIFIED WITH mysql_native_password BY 'adrian'; -- Same that IDENTIFIED BY
 CREATE USER 'adrian'@'localhost' IDENTIFIED WITH mysql_native_password AS 'hash_adrian'; -- Same that IDENTIFIED BY PASSWORD
 
--- Get user hashed password --
-SELECT user,authentication_string FROM mysql.user;
-
 -- Expire the password after first login of the User --
 CREATE USER 'adrian'@'localhost' IDENTIFIED BY 'adrian' PASSWORD EXPIRE;
 

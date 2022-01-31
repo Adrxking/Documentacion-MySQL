@@ -10,99 +10,105 @@
         - Triggers: Se ejecutan como respuesta de un evento como un insert.
 
 2. TUTORIAL RÁPIDO.
--> Procedimientos:
+    -> Procedimientos:
 
-    * Estructura Ejemplo:
-        DELIMITER $$
-        DROP PROCEDURE IF EXISTS descuento$$
-        CREATE PROCEDURE descuento(
-                precionormal NUMERIC(8,2),
-                OUT preciodescuento NUMERIC(8,2))
-        BEGIN
-            IF (precionormal>500) THEN
-                SET preciodescuento=precionormal*0.8;
-            ELSEIF (precionormal>100) THEN
-                SET preciodescuento=precionormal*0.9;
-            ELSE
-                SET preciodescuento=precionormal;
-            END IF;
-        END$$
-        DELIMITER ;
+        * Estructura Ejemplo:
+            DELIMITER $$
+            DROP PROCEDURE IF EXISTS descuento$$
+            CREATE PROCEDURE descuento(
+                    precionormal NUMERIC(8,2),
+                    OUT preciodescuento NUMERIC(8,2))
+            BEGIN
+                IF (precionormal>500) THEN
+                    SET preciodescuento=precionormal*0.8;
+                ELSEIF (precionormal>100) THEN
+                    SET preciodescuento=precionormal*0.9;
+                ELSE
+                    SET preciodescuento=precionormal;
+                END IF;
+            END$$
+            DELIMITER ;
 
-        CALL descuentos (200, @precio),
-        SELECT @precio
+            CALL descuentos (200, @precio),
+            SELECT @precio
 
-    * Parámetros:
-        -> Tipos: Pueden ser de entrada, salida o entrada/salida.
-            - IN: Default. Se le da valor de entrada, El programa que lo llama no ve los cambios.
-            - OUT: No tiene valor de entrada. El programa que lo llama ve los valores.
-            - IN/OUT: Se le da valor de entrada y devuelve valor de salida.
-        
-    * Ejecución condicional:
+        * Parámetros:
+            -> Tipos: Pueden ser de entrada, salida o entrada/salida.
+                - IN: Default. Se le da valor de entrada, El programa que lo llama no ve los cambios.
+                - OUT: No tiene valor de entrada. El programa que lo llama ve los valores.
+                - IN/OUT: Se le da valor de entrada y devuelve valor de salida.
+            
+        * Ejecución condicional:
 
-        IF (...) THEN
-            ...;
-        ELSEIF (...) THEN
-            ...;
-        ELSE
-            ...;
-        END IF;
-    
-    * Bucles:
-
-        LOOP
-            ...
-            ...
             IF (...) THEN
-                LEAVE LOOP;
+                ...;
+            ELSEIF (...) THEN
+                ...;
+            ELSE
+                ...;
             END IF;
+        
+        * Bucles:
 
-    * Debugging:
-        -> SQL termina la ejecución e intenta solucionarlo en el programa de llamada.
-        -> Controladores: Procesa el error y continua con la ejecución del programa.
+            LOOP
+                ...
+                ...
+                IF (...) THEN
+                    LEAVE LOOP;
+                END IF;
 
-    * Interactuar con la BD:
-        -> SELECT ... INTO ... : Almacena los resultados de una consulta que vuelve una sola fila en variables locales.
-        -> Cursores: Almacena los resultados de una consulta que devuelve una o más de una fila en variables locales. 
-        -> Devolver conjunto de datos desde el programa almacenado. Consulta dentro del procedimiento.
-         Devuelve el resultado de una sentencia SELECT compeja.
+        * Debugging:
+            -> SQL termina la ejecución e intenta solucionarlo en el programa de llamada.
+            -> Controladores: Procesa el error y continua con la ejecución del programa.
 
--> Funciones:
-    --> Devuelven un valor de un tipo predefinido
-    --> Pueden llamarse desde una sentencia SQL
-    --> No pueden devolver un conjunto de resultados.
+        * Interactuar con la BD:
+            -> SELECT ... INTO ... : Almacena los resultados de una consulta que vuelve una sola fila en variables locales.
+            -> Cursores: Almacena los resultados de una consulta que devuelve una o más de una fila en variables locales. 
+            -> Devolver conjunto de datos desde el programa almacenado. Consulta dentro del procedimiento.
+            Devuelve el resultado de una sentencia SELECT compeja.
 
-    * Estructura Ejemplo:
-        DELIMITER $$
-        SET GLOBAL log_bin_trust_function_creators = 1;
-        DROP FUNCTION IF EXISTS suma$$
-        CREATE FUNCTION suma(a INT, b INT) RETURNS INT
-        BEGIN
-            DECLARE resultado INT;
-            SET resultado=a+b;
-            RETURN resultado;
-        END$$
-        DELIMITER ;
+    -> Funciones:
+        --> Devuelven un valor de un tipo predefinido
+        --> Pueden llamarse desde una sentencia SQL
+        --> No pueden devolver un conjunto de resultados.
 
-        SELECT suma(2,3);
+        * Estructura Ejemplo:
+            DELIMITER $$
+            SET GLOBAL log_bin_trust_function_creators = 1;
+            DROP FUNCTION IF EXISTS suma$$
+            CREATE FUNCTION suma(a INT, b INT) RETURNS INT
+            BEGIN
+                DECLARE resultado INT;
+                SET resultado=a+b;
+                RETURN resultado;
+            END$$
+            DELIMITER ;
 
-    * Parámetros:
-        -> Tipos: Pueden ser solo de entrada.
-            - IN: Default. Se le da valor de entrada.
-    
--> Triggers:
-    --> Se activan con eventos de las sentencias INSERT, UPDATE o DELETE sobre la tabla.
-    --> También pueden estar asociados a eventos del sistema.
+            SELECT suma(2,3);
 
-    * Estructura Ejemplo:
-        DELIMITER $$
-        DROP TRIGGER IF EXISTS prueba$$
-        CREATE TRIGGER prueba BEFORE INSERT ON EMPLE FOR EACH ROW
-        BEGIN
-            IF NEW.salario>2000 THEN
-                SET NEW.SALARIO=2000;
-            END IF;
-        END$$
-        DELIMITER ;
+        * Parámetros:
+            -> Tipos: Pueden ser solo de entrada.
+                - IN: Default. Se le da valor de entrada.
+        
+    -> Triggers:
+        --> Se activan con eventos de las sentencias INSERT, UPDATE o DELETE sobre la tabla.
+        --> También pueden estar asociados a eventos del sistema.
 
-        SELECT suma(2,3);
+        * Estructura Ejemplo:
+            DELIMITER $$
+            DROP TRIGGER IF EXISTS prueba$$
+            CREATE TRIGGER prueba BEFORE INSERT ON EMPLE FOR EACH ROW
+            BEGIN
+                IF NEW.salario>2000 THEN
+                    SET NEW.SALARIO=2000;
+                END IF;
+            END$$
+            DELIMITER ;
+
+            SELECT suma(2,3);
+
+3. FUNCIONES DEL LENGUAJE.
+    --> Variables
+    --> Literales: Valor de la variable
+    --> Asignacion de valores a variables: SET nombre = "adrian"
+    --> Variables de usuario: Comienzan por @

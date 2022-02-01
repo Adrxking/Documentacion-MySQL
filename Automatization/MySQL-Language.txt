@@ -50,12 +50,13 @@
         
         * Bucles:
 
-            LOOP
+            miloop: LOOP
                 ...
                 ...
                 IF (...) THEN
                     LEAVE LOOP;
                 END IF;
+            end loop miloop;
 
         * Debugging:
             -> SQL termina la ejecución e intenta solucionarlo en el programa de llamada.
